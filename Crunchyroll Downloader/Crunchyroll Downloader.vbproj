@@ -258,6 +258,10 @@
     <Content Include="Firefox\softokn3.dll" />
     <Content Include="Firefox\xul.dll" />
     <Content Include="icon.ico" />
+    <None Include="Resources\main-pause-play-hover.png" />
+    <None Include="Resources\main-pause-hover.png" />
+    <None Include="Resources\main-pause-play.png" />
+    <None Include="Resources\main-pause.png" />
     <None Include="packages.config" />
     <None Include="Resources\LoginSkipHover.png" />
     <None Include="Resources\LoginSkip.png" />

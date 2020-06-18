@@ -49,6 +49,7 @@ Public Class Main
     Public SubFolder As Integer
     Public SoftSubs As New List(Of String)
     Public AbourtList As New List(Of String)
+    Public PauseList As New List(Of String)
     Public watingList As New List(Of String)
     Dim SoftSubsString As String
     Dim CR_Unlock_Error As String
@@ -68,6 +69,7 @@ Public Class Main
     Public ResoBackString As String
     Dim PB_list As New List(Of PictureBox)
     Public bt_dl As New List(Of PictureBox)
+    Public bt_p As New List(Of PictureBox)
     Public PR_List As New List(Of Process)
     Public WebbrowserURL As String = Nothing
     Public WebbrowserText As String = Nothing
@@ -153,6 +155,7 @@ Public Class Main
     Public Declare Function waveOutSetVolume Lib "winmm.dll" (ByVal uDeviceID As Integer, ByVal dwVolume As Integer) As Integer
 
     Private Sub Form8_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         If InStr(My.Computer.Info.OSFullName, "Server") Then
             MsgBox("Windows Server is not supported!", MsgBoxStyle.Critical)
             Me.Close()
@@ -347,6 +350,7 @@ Public Class Main
                 LVPictureBox(ListView1, gIndexH, b, "Softsubs: " + SoftSubs, NameKomplett) ' removed softsubs LVPictureBox(ListView1, gIndexH, b, "Softsubs: " + SoftSubs, NameKomplett)
 
                 Bt_del(ListView1, gIndexH, NameKomplett)
+                Bt_PAUSE(ListView1, gIndexH, NameKomplett)
             End With
         End If
     End Sub
@@ -358,7 +362,7 @@ Public Class Main
         Dim c As Integer = ListView1.Items.Count - 1
         r = pListView.Items(c).Bounds()
         bt_r.Parent = pListView
-        bt_r.SetBounds(755, r.Y + 20, 50, 40)
+        bt_r.SetBounds(775, r.Y + 10, 35, 29)
         bt_dl.Add(bt_r)
         bt_r.Name = NameKomplett
         'bt_r.FlatStyle = FlatStyle.System
@@ -368,12 +372,38 @@ Public Class Main
         bt_r.Image = My.Resources.main_close
         bt_r.Image = My.Resources.main_del
         bt_r.BackgroundImageLayout = ImageLayout.Center
+        bt_r.SizeMode = PictureBoxSizeMode.Zoom
         ToolTip1.SetToolTip(bt_r, NameKomplett)
         'bt_r.FlatAppearance.BorderSize = 1
         'bt_r.FlatAppearance.BorderColor = Color.Black
         AddHandler bt_r.Click, AddressOf Me.Bt_r_click
         AddHandler bt_r.MouseEnter, AddressOf Me.Bt_r_ME
         AddHandler bt_r.MouseLeave, AddressOf Me.Bt_r_ML
+        Return Nothing
+    End Function
+    Public Function Bt_PAUSE(ByVal pListView As ListView, ByVal ItemIndex As Integer, ByVal NameKomplett As String) As PictureBox
+        'btn erstellen funktion
+        Dim r As Rectangle
+        Dim bt_r As New PictureBox
+        Dim c As Integer = ListView1.Items.Count - 1
+        r = pListView.Items(c).Bounds()
+        bt_r.Parent = pListView
+        bt_r.SetBounds(740, r.Y + 15, 25, 20)
+        bt_p.Add(bt_r)
+        bt_r.Name = "pause " + NameKomplett
+        'bt_r.FlatStyle = FlatStyle.System
+        bt_r.Visible = True
+        bt_r.BringToFront()
+        bt_r.Enabled = True
+        bt_r.Image = My.Resources.main_pause
+        bt_r.BackgroundImageLayout = ImageLayout.Center
+        bt_r.SizeMode = PictureBoxSizeMode.Zoom
+        ToolTip1.SetToolTip(bt_r, NameKomplett)
+        'bt_r.FlatAppearance.BorderSize = 1
+        'bt_r.FlatAppearance.BorderColor = Color.Black
+        AddHandler bt_r.Click, AddressOf Me.Bt_p_click
+        AddHandler bt_r.MouseEnter, AddressOf Me.Bt_p_ME
+        AddHandler bt_r.MouseLeave, AddressOf Me.Bt_p_ML
         Return Nothing
     End Function
 
@@ -396,6 +426,45 @@ Public Class Main
         Dim b As PictureBox = sender
         b.Image = My.Resources.main_del
     End Sub
+    Private Sub Bt_p_click(ByVal sender As Object, ByVal e As EventArgs)
+        Dim b As PictureBox = sender
+        If CBool(InStr(b.Name, "pause")) Then
+            b.Name = b.Name.Replace("pause", "continue")
+            b.Image = My.Resources.main_pause_play
+            PauseList.Add(b.Name.Replace("continue", ""))
+        Else
+            b.Name = b.Name.Replace("continue", "pause")
+            b.Image = My.Resources.main_pause
+            For i As Integer = 0 To PauseList.Count - 1
+                If CBool(InStr(PauseList.Item(i), b.Name.Replace("pause", ""))) Then
+                    PauseList.RemoveAt(i)
+                    Exit For
+                End If
+            Next
+        End If
+
+
+
+    End Sub
+    Private Sub Bt_p_ME(ByVal sender As Object, ByVal e As EventArgs)
+        Dim b As PictureBox = sender
+        If CBool(InStr(b.Name, "pause")) Then
+            b.Image = My.Resources.main_pause_hover
+        Else
+            b.Image = My.Resources.main_pause_play_hover
+        End If
+
+
+    End Sub
+    Private Sub Bt_p_ML(ByVal sender As Object, ByVal e As EventArgs)
+        Dim b As PictureBox = sender
+        If CBool(InStr(b.Name, "pause")) Then
+            b.Image = My.Resources.main_pause
+        Else
+            b.Image = My.Resources.main_pause_play
+        End If
+
+    End Sub
     Public Function LVPictureBox(ByVal pListView As ListView, ByVal ItemIndex As Integer, ByVal img As Bitmap, ByVal SoftSubs As String, ByVal NameKomplett As String) As PictureBox
         'btn erstellen funktion
         Dim r As Rectangle
@@ -409,13 +478,13 @@ Public Class Main
         bt_d.SetBounds(r.X, r.Y, r.Width, r.Height)
         bt_d.Name = NameKomplett
         bt_d.BackgroundImage = img
-        PB_list.Add(bt_d)
+
         ToolTip1.SetToolTip(bt_d, SoftSubs)
         bt_d.BackgroundImageLayout = ImageLayout.Center
         'bt_d.FlatAppearance.BorderColor = Color.Orange
         bt_d.Visible = True
         bt_d.Enabled = True
-
+        PB_list.Add(bt_d)
         ' AddHandler LVPictureBox., AddressOf Me.LVPictureBox_MouseHover
         Return Nothing
     End Function
@@ -1591,13 +1660,14 @@ Public Class Main
         wc_ts.DownloadFile(New Uri(DL_URL), DL_Pfad)
 
     End Sub
-    Private Function tsStatusAsync(ByVal prozent As Integer, ByVal di As IO.DirectoryInfo, ByVal Filename As String)
-
+    Private Function tsStatusAsync(ByVal prozent As Integer, ByVal di As IO.DirectoryInfo, ByVal Filename As String, ByVal pausetime As Integer)
+        Dim Now As Date = Date.Now
 
         Dim FinishedSize As Double = 0
         Dim AproxFinalSize As Double = 0
 
         Try
+
             Dim aryFi As IO.FileInfo() = di.GetFiles("*.ts")
             Dim fi As IO.FileInfo
             For Each fi In aryFi
@@ -1605,17 +1675,21 @@ Public Class Main
             Next
         Catch ex As Exception
         End Try
+        'Thread.Sleep(1000)
+        'Pause(1)
 
         If prozent > 0 Then
-            AproxFinalSize = FinishedSize * 100 / prozent
+            AproxFinalSize = Math.Round(FinishedSize * 100 / prozent, 2, MidpointRounding.AwayFromZero).ToString() ' Math.Round( / 1048576, 2, MidpointRounding.AwayFromZero).ToString()
         End If
         Dim duration As TimeSpan = Date.Now - di.CreationTime
         Dim TimeinSeconds As Integer = duration.Hours * 3600 + duration.Minutes * 60 + duration.Seconds
+        TimeinSeconds = TimeinSeconds - pausetime
         Dim DataRate As Double = FinishedSize / TimeinSeconds
+        Dim DataRateString As String = Math.Round(DataRate, 2, MidpointRounding.AwayFromZero).ToString()
         If prozent > 100 Then
             prozent = 100
         End If
-        RaiseEvent UpdateUI(Filename, prozent, Math.Round(FinishedSize, 2, MidpointRounding.AwayFromZero), Math.Round(AproxFinalSize, 2, MidpointRounding.AwayFromZero), Color.FromArgb(247, 140, 37), Math.Round(DataRate, 2, MidpointRounding.AwayFromZero).ToString + "MB\s")
+        RaiseEvent UpdateUI(Filename, prozent, FinishedSize, AproxFinalSize, Color.FromArgb(247, 140, 37), DataRateString + "MB\s")
 
         Return Nothing
     End Function
@@ -1634,6 +1708,7 @@ Public Class Main
         Dim ts_dl As String = Nothing
         Dim Folder As String = einstellungen.GeräteID()
         Dim Pfad2 As String = Application.StartupPath + "\" + Folder + "\"
+        Dim PauseTime As Integer = 0
         If Not Directory.Exists(Path.GetDirectoryName(Pfad2)) Then
             ' Nein! Jetzt erstellen...
             Try
@@ -1648,23 +1723,32 @@ Public Class Main
 
             If InStr(textLenght(i), "https") Then
                 If nummerint > -1 Then
+                    'MsgBox(" " + DL_Pfad)
                     For w As Integer = 0 To Integer.MaxValue
-                        If ThreadList.Count > 7 Then
+
+                        If PauseList.Contains(" " + DL_Pfad) Then
+                            'MsgBox(True.ToString)
+                            Thread.Sleep(5000)
+                            PauseTime = PauseTime + 5
+                        ElseIf ThreadList.Count > 7 Then
                             Thread.Sleep(250)
                         Else
-                            Thread.Sleep(250)
+                            'Thread.Sleep(250)
                             Exit For
                         End If
                     Next
+                    'dl1
                     nummerint = nummerint + 1
                     Dim nummer4D As String = String.Format("{0:0000}", nummerint)
                     Dim i2weilsVSsowill As Integer = i
-                    Dim Evaluator = New Thread(Sub() Me.tsDownloadAsync(textLenght(i2weilsVSsowill), Pfad2 + "\" + nummer4D + ".ts"))
+                    Dim Evaluator = New Thread(Sub() Me.tsDownloadAsync(textLenght(i2weilsVSsowill), Pfad2 + nummer4D + ".ts"))
                     Evaluator.Start()
                     ThreadList.Add(Evaluator)
-                    m3u8FFmpeg = m3u8FFmpeg + Pfad2 + "\" + nummer4D + ".ts" + vbLf
+                    m3u8FFmpeg = m3u8FFmpeg + Pfad2 + nummer4D + ".ts" + vbLf
                     Dim FragmentsFinised = (ThreadList.Count + nummerint) / FragmentsInt * 100
-                    tsStatusAsync(FragmentsFinised, di, Filename)
+                    'Dim status = New Thread(Sub() Me.tsStatusAsync(FragmentsFinised, di, Filename))
+                    'status.Start()
+                    tsStatusAsync(FragmentsFinised, di, Filename, PauseTime)
                 Else
                     m3u8FFmpeg = m3u8FFmpeg + textLenght(i) + vbLf
                     nummerint = 0
@@ -1679,7 +1763,7 @@ Public Class Main
         Using sink As New StreamWriter("index" + Folder + ".m3u8", False, utf8WithoutBom)
             sink.WriteLine(m3u8FFmpeg)
         End Using
-        tsStatusAsync(100, di, Filename)
+        tsStatusAsync(100, di, Filename, PauseTime)
         URL_DL = "index" + Folder + ".m3u8"
         Dim proc As New Process
         Dim exepath As String = Application.StartupPath + "\ffmpeg.exe"
@@ -1687,6 +1771,8 @@ Public Class Main
         'Dim cmd As String = "-i " + Chr(34) + URL_DL + Chr(34) + " -c copy -bsf:a aac_adtstoasc " + Pfad_DL 'start ffmpeg with command strFFCMD string
         '-loglevel repeat+level+debug" + " 
         Dim cmd As String = "-protocol_whitelist file,crypto,http,https,tcp,tls -i " + Chr(34) + URL_DL + Chr(34) + " " + ffmpeg_command + " " + DL_Pfad 'start ffmpeg with command strFFCMD string
+        'MsgBox(cmd)
+
         If MergeSubstoMP4 = True Then
             If CBool(InStr(DL_URL, "-i " + Chr(34))) = True Then
                 cmd = DL_URL + " " + DL_Pfad
@@ -1719,7 +1805,7 @@ Public Class Main
         proc.Start() ' start the process
         proc.BeginOutputReadLine()
         proc.BeginErrorReadLine()
-        proc.WaitForExit()
+        'proc.WaitForExit()
         Return Nothing
     End Function
 
@@ -1873,42 +1959,47 @@ Public Class Main
     End Sub
 
     Private Sub Main_UpdateUI(sender As String, ByVal int As Integer, ByVal Size As Double, ByVal Finished As Double, Color As Color, ByVal Speed As String) Handles Me.UpdateUI
-        For i As Integer = 0 To PB_list.Count - 1
+        Try
+            For i As Integer = 0 To PB_list.Count - 1
 
-            If PB_list(i).Name = sender Then
-                If int = 200 Then
-                    Dim p As PictureBox = PB_list(i)
-                    p.Image = p.BackgroundImage
-                    Dim g As Graphics = Graphics.FromImage(p.Image)
-                    Dim ProgressbarPoint As Point = New Point(195, 70)
-                    Dim WeißeBox As Point = New Point(450, 93)
-                    Dim ProzentText As Point = New Point(773, 100)
-                    Dim Weiß As Brush = New SolidBrush(Color.FromArgb(242, 242, 242))
-                    g.FillRectangle(Weiß, WeißeBox.X + 1, WeißeBox.Y + 1, 350, 30)
-                    g.DrawString("-%", FontLabel2.Font, Brushes.Black, ProzentText)
-                    Dim brGradient As Brush = New SolidBrush(Color)
-                    g.FillRectangle(brGradient, ProgressbarPoint.X + 1, ProgressbarPoint.Y + 1, 600, 19)
-                    g.Dispose()
-                    AbourtList.Remove(sender)
-                Else
-                    Dim stringFormat As New StringFormat()
-                    stringFormat.Alignment = StringAlignment.Far
-                    stringFormat.LineAlignment = StringAlignment.Center
-                    Dim p As PictureBox = PB_list(i)
-                    p.Image = p.BackgroundImage
-                    Dim g As Graphics = Graphics.FromImage(p.Image)
-                    Dim ProgressbarPoint As Point = New Point(195, 70)
-                    Dim WeißeBox As Point = New Point(465, 93)
-                    Dim ProzentText As Point = New Point(795, 113)
-                    Dim Weiß As Brush = New SolidBrush(Color.FromArgb(242, 242, 242))
-                    g.FillRectangle(Weiß, WeißeBox.X + 1, WeißeBox.Y + 1, 335, 30)
-                    g.DrawString(Speed + " " + Size.ToString + "MB/" + Finished.ToString + "MB " + int.ToString + "%", FontLabel2.Font, Brushes.Black, ProzentText, stringFormat)
-                    Dim brGradient As Brush = New SolidBrush(Color)
-                    g.FillRectangle(brGradient, ProgressbarPoint.X + 1, ProgressbarPoint.Y + 1, int * 6, 19)
-                    g.Dispose()
+                If PB_list(i).Name = sender Then
+                    If int = 200 Then
+                        Dim p As PictureBox = PB_list(i)
+                        p.Image = p.BackgroundImage
+                        Dim g As Graphics = Graphics.FromImage(p.Image)
+                        Dim ProgressbarPoint As Point = New Point(195, 70)
+                        Dim WeißeBox As Point = New Point(450, 93)
+                        Dim ProzentText As Point = New Point(773, 100)
+                        Dim Weiß As Brush = New SolidBrush(Color.FromArgb(242, 242, 242))
+                        g.FillRectangle(Weiß, WeißeBox.X + 1, WeißeBox.Y + 1, 350, 30)
+                        g.DrawString("-%", FontLabel2.Font, Brushes.Black, ProzentText)
+                        Dim brGradient As Brush = New SolidBrush(Color)
+                        g.FillRectangle(brGradient, ProgressbarPoint.X + 1, ProgressbarPoint.Y + 1, 600, 19)
+                        g.Dispose()
+                        AbourtList.Remove(sender)
+                    Else
+                        Dim stringFormat As New StringFormat()
+                        stringFormat.Alignment = StringAlignment.Far
+                        stringFormat.LineAlignment = StringAlignment.Center
+                        Dim p As PictureBox = PB_list(i)
+
+                        p.Image = p.BackgroundImage
+                        Dim g As Graphics = Graphics.FromImage(p.Image)
+                        Dim ProgressbarPoint As Point = New Point(195, 70)
+                        Dim WeißeBox As Point = New Point(465, 93)
+                        Dim ProzentText As Point = New Point(795, 113)
+                        Dim Weiß As Brush = New SolidBrush(Color.FromArgb(242, 242, 242))
+                        g.FillRectangle(Weiß, WeißeBox.X + 1, WeißeBox.Y + 1, 335, 30)
+                        g.DrawString(Speed + " " + Size.ToString + "MB/" + Finished.ToString + "MB " + int.ToString + "%", FontLabel2.Font, Brushes.Black, ProzentText, stringFormat)
+                        Dim brGradient As Brush = New SolidBrush(Color)
+                        g.FillRectangle(brGradient, ProgressbarPoint.X + 1, ProgressbarPoint.Y + 1, int * 6, 19)
+                        g.Dispose()
+                    End If
                 End If
-            End If
-        Next
+            Next
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles pictureBox3.Click
@@ -2012,7 +2103,8 @@ Public Class Main
             For s As Integer = 0 To ListView1.Items.Count - 1
                 Dim r As Rectangle = ListView1.Items.Item(s).Bounds
                 PB_list(s).SetBounds(r.X, r.Y, r.Width, r.Height)
-                bt_dl(s).SetBounds(755, r.Y + 20, 50, 40)
+                bt_dl(s).SetBounds(775, r.Y + 10, 35, 29)
+                bt_p(s).SetBounds(740, r.Y + 15, 25, 20)
             Next
         Catch ex As Exception
 
@@ -2296,6 +2388,7 @@ Public Class Main
     Private Sub Main_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Me.MouseDoubleClick
         Login.Show()
     End Sub
+
 
 End Class
 

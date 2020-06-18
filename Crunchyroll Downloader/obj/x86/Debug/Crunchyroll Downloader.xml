@@ -306,6 +306,26 @@ Crunchyroll Downloader
   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
 </summary>
 </member>
+<member name="P:Crunchyroll_Downloader.My.Resources.Resources.main_pause">
+<summary>
+  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Crunchyroll_Downloader.My.Resources.Resources.main_pause_hover">
+<summary>
+  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Crunchyroll_Downloader.My.Resources.Resources.main_pause_play">
+<summary>
+  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Crunchyroll_Downloader.My.Resources.Resources.main_pause_play_hover">
+<summary>
+  Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:Crunchyroll_Downloader.My.Resources.Resources.main_settings">
 <summary>
   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.

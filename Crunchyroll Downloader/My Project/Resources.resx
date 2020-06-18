@@ -370,4 +370,16 @@
     <value>US cookies can't be used as long you are logged in.
 I delete the curremt session with the unlock, if you want to be logged in with the US cookie you need to enter you data on the left.</value>
   </data>
+  <data name="main_pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\main-pause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="main_pause_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\main-pause-hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="main_pause_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\main-pause-play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="main_pause_play_hover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\main-pause-play-hover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
