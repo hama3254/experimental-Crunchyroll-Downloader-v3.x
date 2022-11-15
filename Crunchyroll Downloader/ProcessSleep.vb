@@ -1,4 +1,8 @@
-﻿Module ProcessSleep
+﻿Option Strict On
+
+Imports System.IO
+Imports System.IO.Compression
+Module ProcessSleep
     Public Enum ThreadAccess As Integer
         TERMINATE = (&H1)
         SUSPEND_RESUME = (&H2)
@@ -21,7 +25,7 @@
         'Programmausführung verzögern *******************************************************
 
         Dim start, finish As Single
-        start = Microsoft.VisualBasic.DateAndTime.Timer
+        start = CSng(Microsoft.VisualBasic.DateAndTime.Timer)
 
         finish = start + pau
         Do While Microsoft.VisualBasic.DateAndTime.Timer < finish
@@ -29,6 +33,33 @@
         Loop
 
     End Sub
+
+    Public Sub Pause_ms(ByVal ms As Integer)
+
+        'Programmausführung verzögern *******************************************************
+        Dim stopWatch As New Stopwatch()
+        stopWatch.Start()
+
+        Do Until stopWatch.Elapsed.TotalMilliseconds > ms
+            Application.DoEvents()
+        Loop
+
+        stopWatch.Stop()
+    End Sub
+
+    Public Function DecompressString(ByVal bytes As Byte()) As String
+
+        Using ms = New MemoryStream(bytes)
+            Using ds = New GZipStream(ms, CompressionMode.Decompress)
+                Using sr = New StreamReader(ds)
+
+                    Return sr.ReadToEnd()
+
+                End Using
+            End Using
+        End Using
+
+    End Function
 
 
 End Module

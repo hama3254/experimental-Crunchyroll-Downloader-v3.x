@@ -117,19 +117,505 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+  <metadata name="PictureBox5.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
-  <metadata name="Timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>116, 17</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="PictureBox5.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="PictureBox5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 65</value>
+  </data>
+  <data name="PictureBox5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="PictureBox5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>840, 6</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="PictureBox5.TabIndex" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="&gt;&gt;PictureBox5.Name" xml:space="preserve">
+    <value>PictureBox5</value>
+  </data>
+  <data name="&gt;&gt;PictureBox5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PictureBox5.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PictureBox5.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>612, 17</value>
   </metadata>
   <metadata name="Timer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>205, 17</value>
+    <value>272, 14</value>
   </metadata>
   <metadata name="Timer3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>294, 17</value>
+    <value>184, 52</value>
+  </metadata>
+  <data name="TheTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 652</value>
+  </data>
+  <data name="TheTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="TheTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>840, 96</value>
+  </data>
+  <data name="TheTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="TheTextBox.Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="TheTextBox.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;TheTextBox.Name" xml:space="preserve">
+    <value>TheTextBox</value>
+  </data>
+  <data name="&gt;&gt;TheTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TheTextBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;TheTextBox.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="ConsoleBar.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Stretch</value>
+  </data>
+  <data name="ConsoleBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 618</value>
+  </data>
+  <data name="ConsoleBar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="ConsoleBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>840, 6</value>
+  </data>
+  <data name="ConsoleBar.TabIndex" type="System.Int32, mscorlib">
+    <value>68</value>
+  </data>
+  <data name="&gt;&gt;ConsoleBar.Name" xml:space="preserve">
+    <value>ConsoleBar</value>
+  </data>
+  <data name="&gt;&gt;ConsoleBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConsoleBar.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ConsoleBar.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <metadata name="MetroStyleExtender1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="MetroStyleManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>20, 48</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>87</value>
   </metadata>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>842, 630</value>
+  </data>
+  <data name="Panel1.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="Panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 71</value>
+  </data>
+  <data name="Panel1.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>798, 403</value>
+  </data>
+  <data name="Panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>840, 546</value>
+  </data>
+  <data name="Panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;Panel1.Name" xml:space="preserve">
+    <value>Panel1</value>
+  </data>
+  <data name="&gt;&gt;Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Panel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="Btn_Close.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="Btn_Close.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Btn_Close.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Btn_Close.Location" type="System.Drawing.Point, System.Drawing">
+    <value>800, 1</value>
+  </data>
+  <data name="Btn_Close.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 40</value>
+  </data>
+  <data name="Btn_Close.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;Btn_Close.Name" xml:space="preserve">
+    <value>Btn_Close</value>
+  </data>
+  <data name="&gt;&gt;Btn_Close.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Btn_Close.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Btn_Close.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="Btn_min.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="Btn_min.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Btn_min.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Btn_min.Location" type="System.Drawing.Point, System.Drawing">
+    <value>757, 1</value>
+  </data>
+  <data name="Btn_min.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 40</value>
+  </data>
+  <data name="Btn_min.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;Btn_min.Name" xml:space="preserve">
+    <value>Btn_min</value>
+  </data>
+  <data name="&gt;&gt;Btn_min.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Btn_min.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Btn_min.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="Btn_Settings.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="Btn_Settings.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Btn_Settings.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Btn_Settings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>641, 18</value>
+  </data>
+  <data name="Btn_Settings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 35</value>
+  </data>
+  <data name="Btn_Settings.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;Btn_Settings.Name" xml:space="preserve">
+    <value>Btn_Settings</value>
+  </data>
+  <data name="&gt;&gt;Btn_Settings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Btn_Settings.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Btn_Settings.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="Btn_Browser.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="Btn_Browser.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Btn_Browser.Location" type="System.Drawing.Point, System.Drawing">
+    <value>124, 18</value>
+  </data>
+  <data name="Btn_Browser.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 35</value>
+  </data>
+  <data name="Btn_Browser.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;Btn_Browser.Name" xml:space="preserve">
+    <value>Btn_Browser</value>
+  </data>
+  <data name="&gt;&gt;Btn_Browser.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Btn_Browser.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Btn_Browser.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="Btn_add.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="Btn_add.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="Btn_add.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="Btn_add.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 18</value>
+  </data>
+  <data name="Btn_add.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 35</value>
+  </data>
+  <data name="Btn_add.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;Btn_add.Name" xml:space="preserve">
+    <value>Btn_add</value>
+  </data>
+  <data name="&gt;&gt;Btn_add.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Btn_add.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Btn_add.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>840, 630</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Crunchyroll Downloader</value>
+  </data>
+  <data name="&gt;&gt;ToolTip1.Name" xml:space="preserve">
+    <value>ToolTip1</value>
+  </data>
+  <data name="&gt;&gt;ToolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Timer2.Name" xml:space="preserve">
+    <value>Timer2</value>
+  </data>
+  <data name="&gt;&gt;Timer2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Timer3.Name" xml:space="preserve">
+    <value>Timer3</value>
+  </data>
+  <data name="&gt;&gt;Timer3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MetroStyleExtender1.Name" xml:space="preserve">
+    <value>MetroStyleExtender1</value>
+  </data>
+  <data name="&gt;&gt;MetroStyleExtender1.Type" xml:space="preserve">
+    <value>MetroFramework.Components.MetroStyleExtender, MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a</value>
+  </data>
+  <data name="&gt;&gt;MetroStyleManager1.Name" xml:space="preserve">
+    <value>MetroStyleManager1</value>
+  </data>
+  <data name="&gt;&gt;MetroStyleManager1.Type" xml:space="preserve">
+    <value>MetroFramework.Components.MetroStyleManager, MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a</value>
+  </data>
+  <data name="&gt;&gt;Timer4.Name" xml:space="preserve">
+    <value>Timer4</value>
+  </data>
+  <data name="&gt;&gt;Timer4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ToggleDebugModeToolStripMenuItem.Name" xml:space="preserve">
+    <value>ToggleDebugModeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ToggleDebugModeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OpenSettingsToolStripMenuItem.Name" xml:space="preserve">
+    <value>OpenSettingsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;OpenSettingsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TestDownloadToolStripMenuItem.Name" xml:space="preserve">
+    <value>TestDownloadToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;TestDownloadToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CheckCRBetaTokenToolStripMenuItem.Name" xml:space="preserve">
+    <value>CheckCRBetaTokenToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;CheckCRBetaTokenToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AddonHTMLToolStripMenuItem.Name" xml:space="preserve">
+    <value>AddonHTMLToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;AddonHTMLToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Timer3OffToolStripMenuItem.Name" xml:space="preserve">
+    <value>Timer3OffToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;Timer3OffToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ThreadCount.Name" xml:space="preserve">
+    <value>ThreadCount</value>
+  </data>
+  <data name="&gt;&gt;ThreadCount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MsgBoxToolStripMenuItem.Name" xml:space="preserve">
+    <value>MsgBoxToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;MsgBoxToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CRCookieToolStripMenuItem.Name" xml:space="preserve">
+    <value>CRCookieToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;CRCookieToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ClearAllSettingsToolStripMenuItem.Name" xml:space="preserve">
+    <value>ClearAllSettingsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ClearAllSettingsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ItemBoundsToolStripMenuItem.Name" xml:space="preserve">
+    <value>ItemBoundsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ItemBoundsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DummyItemToolStripMenuItem.Name" xml:space="preserve">
+    <value>DummyItemToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;DummyItemToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>MetroFramework.Forms.MetroForm, MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a</value>
+  </data>
+  <metadata name="Timer4.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>276, 52</value>
+  </metadata>
+  <metadata name="ContextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>578, 45</value>
+  </metadata>
+  <data name="ToggleDebugModeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="ToggleDebugModeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Toggle Debug Mode</value>
+  </data>
+  <data name="OpenSettingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="OpenSettingsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Open Settings</value>
+  </data>
+  <data name="TestDownloadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="TestDownloadToolStripMenuItem.Text" xml:space="preserve">
+    <value>Check Funimation Token</value>
+  </data>
+  <data name="CheckCRBetaTokenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="CheckCRBetaTokenToolStripMenuItem.Text" xml:space="preserve">
+    <value>Check CR Beta Token</value>
+  </data>
+  <data name="AddonHTMLToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="AddonHTMLToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add-on HTML</value>
+  </data>
+  <data name="Timer3OffToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="Timer3OffToolStripMenuItem.Text" xml:space="preserve">
+    <value>Timer3 off</value>
+  </data>
+  <data name="ThreadCount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="ThreadCount.Text" xml:space="preserve">
+    <value>set hybrid-mode thread count</value>
+  </data>
+  <data name="MsgBoxToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="MsgBoxToolStripMenuItem.Text" xml:space="preserve">
+    <value>MsgBox(LoadedUrls)</value>
+  </data>
+  <data name="CRCookieToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="CRCookieToolStripMenuItem.Text" xml:space="preserve">
+    <value>CR_Cookie</value>
+  </data>
+  <data name="ClearAllSettingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="ClearAllSettingsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Clear all settings</value>
+  </data>
+  <data name="ItemBoundsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="ItemBoundsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Item bounds</value>
+  </data>
+  <data name="DummyItemToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>233, 22</value>
+  </data>
+  <data name="DummyItemToolStripMenuItem.Text" xml:space="preserve">
+    <value>Dummy_Item</value>
+  </data>
+  <data name="ContextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 268</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuStrip1.Name" xml:space="preserve">
+    <value>ContextMenuStrip1</value>
+  </data>
+  <data name="&gt;&gt;ContextMenuStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
