@@ -27,7 +27,10 @@ Public Class Anime_Add
         Main.LoadingUrl = Url
         Main.LoadedUrls.Clear()
 
+        'MsgBox(Url)
+
         If CBool(InStr(Url, "crunchyroll.com")) = True And CBool(InStr(Url, "series")) = True Or CBool(InStr(Url, "crunchyroll.com")) = True And CBool(InStr(Url, "watch")) = True Then
+
 
 
 #Region "Get Cookies"
@@ -37,6 +40,7 @@ Public Class Anime_Add
             Browser.GetCookies(Url)
             'MsgBox("Cookies2")
 
+            'MsgBox(Main.CookieList.Count.ToString)
             If Main.CookieList.Count = 0 Then
                 Browser.WebView2.CoreWebView2.Navigate(Url)
                 StatusLabel.Text = "Status: loading in browser..."
@@ -116,6 +120,13 @@ Public Class Anime_Add
                 Me.StatusLabel.Text = "Status: Failed - bad request, check CR login"
                 Main.Text = "Status: Failed - bad request, check CR login"
                 Debug.WriteLine("Status: Failed - bad request, check CR login")
+                If GroupBox3.Visible = True Then
+                    GroupBox3.Visible = False
+                    groupBox2.Visible = False
+                    groupBox1.Visible = True
+                    List_DL_Cancel = False
+                    btn_dl.BackgroundImage = My.Resources.main_button_download_default
+                End If
                 Main.b = True
                 Exit Sub
 
@@ -214,8 +225,15 @@ Public Class Anime_Add
 
                             StatusLabel.Text = "Status: Failed - no video, check CR login"
                             Main.Text = "Status: Failed - no video, check CR login"
-                            Debug.WriteLine("Status: Failed - no video, check CR login")
-                            Exit Sub
+                        Debug.WriteLine("Status: Failed - no video, check CR login")
+                        If GroupBox3.Visible = True Then
+                            GroupBox3.Visible = False
+                            groupBox2.Visible = False
+                            groupBox1.Visible = True
+                            List_DL_Cancel = False
+                            btn_dl.BackgroundImage = My.Resources.main_button_download_default
+                        End If
+                        Exit Sub
                         End If
 
                     Catch ex As Exception
@@ -842,11 +860,11 @@ Public Class Anime_Add
                     Else
                         If Main.Grapp_RDY = True Then
                             Main.Grapp_RDY = False
+                            StatusLabel.Text = "Status: loading ..."
+                            Main.Text = "Status: loading ..."
                             LoadBrowser(ListBox1.GetItemText(ListBox1.Items(0)))
                             ListBox1.Items.Remove(ListBox1.Items(0))
                             Main.b = False
-                            StatusLabel.Text = "Status: loading ..."
-                            Main.Text = "Status: loading ..."
                             Main.Invalidate()
 
                         End If
