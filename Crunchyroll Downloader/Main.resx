@@ -151,7 +151,7 @@
     <value>9</value>
   </data>
   <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>612, 17</value>
+    <value>370, 2</value>
   </metadata>
   <metadata name="Timer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>272, 14</value>
@@ -465,10 +465,10 @@
   <data name="&gt;&gt;OpenSettingsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;TestDownloadToolStripMenuItem.Name" xml:space="preserve">
-    <value>TestDownloadToolStripMenuItem</value>
+  <data name="&gt;&gt;Funimation_Token.Name" xml:space="preserve">
+    <value>Funimation_Token</value>
   </data>
-  <data name="&gt;&gt;TestDownloadToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;Funimation_Token.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;CheckCRBetaTokenToolStripMenuItem.Name" xml:space="preserve">
@@ -535,7 +535,7 @@
     <value>276, 52</value>
   </metadata>
   <metadata name="ContextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>578, 45</value>
+    <value>352, 49</value>
   </metadata>
   <data name="ToggleDebugModeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>233, 22</value>
@@ -549,10 +549,10 @@
   <data name="OpenSettingsToolStripMenuItem.Text" xml:space="preserve">
     <value>Open Settings</value>
   </data>
-  <data name="TestDownloadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="Funimation_Token.Size" type="System.Drawing.Size, System.Drawing">
     <value>233, 22</value>
   </data>
-  <data name="TestDownloadToolStripMenuItem.Text" xml:space="preserve">
+  <data name="Funimation_Token.Text" xml:space="preserve">
     <value>Check Funimation Token</value>
   </data>
   <data name="CheckCRBetaTokenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
@@ -610,7 +610,7 @@
     <value>Dummy_Item</value>
   </data>
   <data name="ContextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 268</value>
+    <value>234, 290</value>
   </data>
   <data name="&gt;&gt;ContextMenuStrip1.Name" xml:space="preserve">
     <value>ContextMenuStrip1</value>

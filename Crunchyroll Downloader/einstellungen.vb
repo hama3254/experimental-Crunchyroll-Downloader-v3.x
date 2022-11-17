@@ -18,7 +18,7 @@ Public Class Einstellungen
 
     Private Sub Einstellungen_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Label6.Text = "You have: v" + Application.ProductVersion.ToString
+        Label6.Text = "You have: v" + Application.ProductVersion.ToString + " WebView2_Test"
 
         BackgroundWorker1.RunWorkerAsync()
 

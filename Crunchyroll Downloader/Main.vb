@@ -17,7 +17,6 @@ Imports System.Security.Policy
 Imports MyProvider.MyProvider
 Imports System.Windows
 Imports Microsoft.Web.WebView2.Core
-
 Public Class Main
     Inherits MetroForm
     Dim t As Thread
@@ -274,6 +273,7 @@ Public Class Main
 
     Private Sub ConsoleBar_Click(sender As Object, e As EventArgs) Handles ConsoleBar.Click
         If TheTextBox.Visible = True Then
+            'TheTextBox.Lines = DebugList.ToArray
             TheTextBox.Visible = False
             ListViewHeightOffset = 7
             ConsoleBar.Location = New Point(0, Me.Height - ListViewHeightOffset)
@@ -313,7 +313,7 @@ Public Class Main
 
             Dim W As Integer = Panel1.Width
             If Panel1.Controls.Count * 142 > Panel1.Height Then
-                w = Panel1.Width - SystemInformation.VerticalScrollBarWidth
+                W = Panel1.Width - SystemInformation.VerticalScrollBarWidth
             End If
 
             Dim Item As New List(Of CRD_List_Item)
@@ -2455,8 +2455,10 @@ Public Class Main
                     b = False
 
                     If CBool(InStr(ListOfEpisodes(i), "funimation.com/v/")) Then
-                        Dim Episode() As String = ListOfEpisodes(i).Split(New String() {"/"}, System.StringSplitOptions.RemoveEmptyEntries)
+                        Dim Episode0() As String = ListOfEpisodes(i).Split(New String() {"?"}, System.StringSplitOptions.RemoveEmptyEntries)
+                        Dim Episode() As String = Episode0(0).Split(New String() {"/"}, System.StringSplitOptions.RemoveEmptyEntries)
                         Dim v1JsonUrl As String = "https://d33et77evd9bgg.cloudfront.net/data/v1/episodes/" + Episode(Episode.Length - 1) + ".json"
+                        'MsgBox(v1JsonUrl)
                         Dim v1Json As String = Nothing
                         Try
                             Using client As New WebClient()
@@ -2464,6 +2466,7 @@ Public Class Main
                                 client.Headers.Add(My.Resources.ffmpeg_user_agend.Replace(Chr(34), ""))
                                 v1Json = client.DownloadString(v1JsonUrl)
                             End Using
+                            WebbrowserURL = ListOfEpisodes(i)
                             GetFunimationNewJS_VideoProxy(Nothing, v1Json)
                         Catch ex As Exception
                             Debug.WriteLine("error- getting v1Json data for the bypasss")
@@ -2540,35 +2543,32 @@ Public Class Main
             Return "N/A"
         End If
     End Function
-    Public Sub GetFunimationNewJS_VideoProxy(Optional ByVal v1JsonURL As String = Nothing, Optional ByVal v1JsonData As String = Nothing)
-        'Try
-        '    Dim Collector As New TaskCookieVisitor
-        '    Dim CM As ICookieManager = Browser.WebBrowser1.GetCookieManager
-        '    CM.VisitAllCookies(Collector)
-        '    Dim list As List(Of Global.CefSharp.Cookie) = Collector.Task.Result()
-        '    Dim Cookie As String = ""
-        '    For i As Integer = 0 To list.Count - 1
-        '        If CBool(InStr(list.Item(i).Domain, "funimation.com")) Then 'list.Item(i).Domain = "funimation.com" Then
-        '            'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
-        '            Cookie = Cookie + list.Item(i).Name + "=" + list.Item(i).Value + ";"
-        '        End If
-        '        If CBool(InStr(list.Item(i).Domain, "funimation.com")) And CBool(InStr(list.Item(i).Name, "src_token")) Then 'list.Item(i).Domain = "funimation.com" Then
-        '            'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
-        '            FunimationToken = "Token " + list.Item(i).Value
-        '        End If
-        '        If CBool(InStr(list.Item(i).Domain, "funimation.com")) And CBool(InStr(list.Item(i).Name, "region")) Then 'list.Item(i).Domain = "funimation.com" Then
-        '            'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
-        '            FunimationDeviceRegion = "?deviceType=web&" + list.Item(i).Name + "=" + list.Item(i).Value
-        '        End If
-        '    Next
+    Public Async Sub GetFunimationNewJS_VideoProxy(Optional ByVal v1JsonURL As String = Nothing, Optional ByVal v1JsonData As String = Nothing)
+        Try
+            Dim list As List(Of CoreWebView2Cookie) = Await Browser.WebView2.CoreWebView2.CookieManager.GetCookiesAsync("https://www.funimation.com/")
+            Dim Cookie As String = ""
+            For i As Integer = 0 To list.Count - 1
+                If CBool(InStr(list.Item(i).Domain, "funimation.com")) Then 'list.Item(i).Domain = "funimation.com" Then
+                    'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
+                    Cookie = Cookie + list.Item(i).Name + "=" + list.Item(i).Value + ";"
+                End If
+                If CBool(InStr(list.Item(i).Domain, "funimation.com")) And CBool(InStr(list.Item(i).Name, "src_token")) Then 'list.Item(i).Domain = "funimation.com" Then
+                    'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
+                    FunimationToken = "Token " + list.Item(i).Value
+                End If
+                If CBool(InStr(list.Item(i).Domain, "funimation.com")) And CBool(InStr(list.Item(i).Name, "region")) Then 'list.Item(i).Domain = "funimation.com" Then
+                    'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
+                    FunimationDeviceRegion = "?deviceType=web&" + list.Item(i).Name + "=" + list.Item(i).Value
+                End If
+            Next
 
-        'Catch ex As Exception
+        Catch ex As Exception
 
-        'End Try
-        '' region=US;
-        'LoadedUrls.Clear()
-        'Dim Evaluator = New Thread(Sub() Me.GetFunimationNewJS_Video(v1JsonURL, v1JsonData))
-        'Evaluator.Start()
+        End Try
+        ' region=US;
+        LoadedUrls.Clear()
+        Dim Evaluator = New Thread(Sub() Me.GetFunimationNewJS_Video(v1JsonURL, v1JsonData))
+        Evaluator.Start()
     End Sub
 
     Public Sub GetFunimationNewJS_Video(ByVal v1JsonUrl As String, ByVal v1JsonData As String) ', ByVal WebsiteURL As String
@@ -3309,7 +3309,7 @@ Public Class Main
 
 
 #Region "process html"
-    Public Sub ProcessHTML(ByVal document As String, ByVal Address As String, ByVal DocumentTitle As String)
+    Public Async Sub ProcessHTML(ByVal document As String, ByVal Address As String, ByVal DocumentTitle As String)
         Dim localHTML As String = document
         Debug.WriteLine(Date.Now.ToString + "." + Date.Now.Millisecond.ToString)
         Debug.WriteLine(Address)
@@ -3414,34 +3414,32 @@ Public Class Main
                 Exit Sub
             End If
 
-            'ElseIf CBool(InStr(Address, "funimation.com")) Then
-            '    Dim Collector As New TaskCookieVisitor
-            '    Dim CM As ICookieManager = Browser.WebBrowser1.GetCookieManager
-            '    CM.VisitAllCookies(Collector)
-            '    Dim list As List(Of Global.CefSharp.Cookie) = Collector.Task.Result()
-            '    Dim Cookie As String = ""
-            '    For i As Integer = 0 To list.Count - 1
-            '        If CBool(InStr(list.Item(i).Domain, "funimation.com")) Then 'list.Item(i).Domain = "funimation.com" Then
-            '            'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
-            '            Cookie = Cookie + list.Item(i).Name + "=" + list.Item(i).Value + ";"
-            '        End If
-            '        If CBool(InStr(list.Item(i).Domain, "funimation.com")) And CBool(InStr(list.Item(i).Name, "src_token")) Then 'list.Item(i).Domain = "funimation.com" Then
-            '            'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
-            '            FunimationToken = "Token " + list.Item(i).Value
-            '        End If
-            '    Next
-            '    If b = False Then
-            '        WebbrowserCookie = Cookie
-            '        WebbrowserURL = Address
-            '        Text = "Crunchyroll Downloader"
-            '        For i As Integer = 10 To 0 Step -1
-            '            Anime_Add.StatusLabel.Text = "Status: checking traffic - " + i.ToString
-            '            Pause(1)
-            '        Next
-            '        Dim Evaluator = New Thread(Sub() Me.ProcessUrls())
-            '        Evaluator.Start()
-            '        Exit Sub
-            '    End If
+        ElseIf CBool(InStr(Address, "funimation.com")) Then
+
+            Dim list As List(Of CoreWebView2Cookie) = Await Browser.WebView2.CoreWebView2.CookieManager.GetCookiesAsync("https://www.funimation.com")
+            Dim Cookie As String = ""
+            For i As Integer = 0 To list.Count - 1
+                If CBool(InStr(list.Item(i).Domain, "funimation.com")) Then 'list.Item(i).Domain = "funimation.com" Then
+                    'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
+                    Cookie = Cookie + list.Item(i).Name + "=" + list.Item(i).Value + ";"
+                End If
+                If CBool(InStr(list.Item(i).Domain, "funimation.com")) And CBool(InStr(list.Item(i).Name, "src_token")) Then 'list.Item(i).Domain = "funimation.com" Then
+                    'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
+                    FunimationToken = "Token " + list.Item(i).Value
+                End If
+            Next
+            If b = False Then
+                WebbrowserCookie = Cookie
+                WebbrowserURL = Address
+                Text = "Crunchyroll Downloader"
+                For i As Integer = 10 To 0 Step -1
+                    Anime_Add.StatusLabel.Text = "Status: checking traffic - " + i.ToString
+                    Pause(1)
+                Next
+                Dim Evaluator = New Thread(Sub() Me.ProcessUrls())
+                Evaluator.Start()
+                Exit Sub
+            End If
         Else
             WebbrowserURL = Address
             Text = "Crunchyroll Downloader"
@@ -3590,61 +3588,26 @@ Public Class Main
                 Me.Text = "Crunchyroll Downloader"
                 Exit Sub
             End If
-            'If CBool(InStr(requesturl, "https://title-api.prd.funimationsvc.com")) And CBool(InStr(requesturl, "?region=")) Then
-            '    Try
-            '        Dim Collector As New TaskCookieVisitor
-            '        Dim CM As ICookieManager = Browser.WebBrowser1.GetCookieManager
-            '        CM.VisitAllCookies(Collector)
-            '        Dim list As List(Of Global.CefSharp.Cookie) = Collector.Task.Result()
-            '        Dim Cookie As String = ""
-            '        For ii As Integer = 0 To list.Count - 1
-            '            If CBool(InStr(list.Item(ii).Domain, "funimation.com")) Then 'list.Item(i).Domain = "funimation.com" Then
-            '                'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
-            '                Cookie = Cookie + list.Item(ii).Name + "=" + list.Item(ii).Value + ";"
-            '            End If
-            '        Next
-            '        WebbrowserCookie = Cookie
-            '    Catch ex As Exception
-            '    End Try
-            '    If FunimationAPIRegion = Nothing Then
-            '        Me.Invoke(New Action(Function() As Object
-            '                                 Dim parms As String() = requesturl.Split(New String() {"?region="}, System.StringSplitOptions.RemoveEmptyEntries)
-            '                                 FunimationAPIRegion = "?region=" + parms(1)
-            '                                 Return Nothing
-            '                             End Function))
-            '    End If
-            '    If b = False Then
-            '        'If CBool(InStr(requesturl, "https://title-api.prd.funimationsvc.com/v1/episodes/")) Then
-            '        '    GetFunimationJS_VideoProxy(requesturl)
-            '        '    Debug.WriteLine("processing :" + requesturl)
-            '        '    b = True
-            '        '    Exit For
-            '        'Else
-            '        If CBool(InStr(requesturl, "https://title-api.prd.funimationsvc.com/v1/show")) And CBool(InStr(requesturl, "/episodes/")) Then
-            '            b = True
-            '            Try
-            '                Dim Collector As New TaskCookieVisitor
-            '                Dim CM As ICookieManager = Browser.WebBrowser1.GetCookieManager
-            '                CM.VisitAllCookies(Collector)
-            '                Dim list As List(Of Global.CefSharp.Cookie) = Collector.Task.Result()
-            '                Dim Cookie As String = ""
-            '                For ii As Integer = 0 To list.Count - 1
-            '                    If CBool(InStr(list.Item(ii).Domain, "funimation.com")) Then 'list.Item(i).Domain = "funimation.com" Then
-            '                        'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
-            '                        Cookie = Cookie + list.Item(ii).Name + "=" + list.Item(ii).Value + ";"
-            '                    End If
-            '                Next
-            '                WebbrowserCookie = Cookie
-            '            Catch ex As Exception
-            '            End Try
-            '            GetFunimationNewJS_VideoProxy(requesturl)
-            '            Debug.WriteLine("processing :" + requesturl)
-            '            LoadedUrls.Clear()
-            '            Me.Text = "Crunchyroll Downloader"
-            '            Exit Sub
-            '        End If
-            '    End If
-            'End If
+            If CBool(InStr(requesturl, "https://title-api.prd.funimationsvc.com")) And CBool(InStr(requesturl, "?region=")) Then
+                If FunimationAPIRegion = Nothing Then
+                    Me.Invoke(New Action(Function() As Object
+                                             Dim parms As String() = requesturl.Split(New String() {"?region="}, System.StringSplitOptions.RemoveEmptyEntries)
+                                             FunimationAPIRegion = "?region=" + parms(1)
+                                             Return Nothing
+                                         End Function))
+                End If
+                If b = False Then
+
+                    If CBool(InStr(requesturl, "https://title-api.prd.funimationsvc.com/v1/show")) And CBool(InStr(requesturl, "/episodes/")) Then
+                        b = True
+                        GetFunimationNewJS_VideoProxy(requesturl)
+                        Debug.WriteLine("processing :" + requesturl)
+                        LoadedUrls.Clear()
+                        Me.Text = "Crunchyroll Downloader"
+                        Exit Sub
+                    End If
+                End If
+            End If
         Next
 
         LoadedUrls.Clear()
@@ -4139,39 +4102,39 @@ Public Class Main
         Panel1.Select()
     End Sub
 
-    Private Sub TestDownloadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestDownloadToolStripMenuItem.Click
-        'Dim Token As String = Nothing
-        'Try
-        '    Dim Collector As New TaskCookieVisitor
-        '    Dim CM As ICookieManager = CefSharp_Browser.WebBrowser1.GetCookieManager
-        '    CM.VisitAllCookies(Collector)
-        '    Dim DeviceRegion As String = Nothing
-        '    Dim list As List(Of Global.CefSharp.Cookie) = Collector.Task.Result()
-        '    Dim Cookie As String = ""
-        '    For i As Integer = 0 To list.Count - 1
-        '        If CBool(InStr(list.Item(i).Domain, "funimation.com")) Then 'list.Item(i).Domain = "funimation.com" Then
-        '            'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
-        '            Cookie = Cookie + list.Item(i).Name + "=" + list.Item(i).Value + ";"
-        '        End If
-        '        If CBool(InStr(list.Item(i).Domain, "funimation.com")) And CBool(InStr(list.Item(i).Name, "src_token")) Then 'list.Item(i).Domain = "funimation.com" Then
-        '            'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
-        '            Token = "Token " + list.Item(i).Value
-        '        End If
-        '        If CBool(InStr(list.Item(i).Domain, "funimation.com")) And CBool(InStr(list.Item(i).Name, "region")) Then 'list.Item(i).Domain = "funimation.com" Then
-        '            'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
-        '            DeviceRegion = "?deviceType=web&" + list.Item(i).Name + "=" + list.Item(i).Value
-        '        End If
-        '    Next
-        'Catch ex As Exception
+    Private Async Sub Funimation_Token_Click(sender As Object, e As EventArgs) Handles Funimation_Token.Click
+        Dim Token As String = Nothing
+        Try
+            Dim DeviceRegion As String = Nothing
 
-        'End Try
-        '' region=US;
-        'If Token = Nothing Then
-        '    MsgBox("No Token has been found...", MsgBoxStyle.Exclamation)
-        'Else
-        '    FunimationToken = Token
-        '    MsgBox("Token found!" + vbNewLine + Token, MsgBoxStyle.Information)
-        'End If
+            'Browser.GetCookies()
+
+            Dim list As List(Of CoreWebView2Cookie) = Await Browser.WebView2.CoreWebView2.CookieManager.GetCookiesAsync("https://www.funimation.com/")
+            Dim Cookie As String = ""
+            For i As Integer = 0 To list.Count - 1
+                If CBool(InStr(list.Item(i).Domain, "funimation.com")) Then 'list.Item(i).Domain = "funimation.com" Then
+                    'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
+                    Cookie = Cookie + list.Item(i).Name + "=" + list.Item(i).Value + ";"
+                End If
+                If CBool(InStr(list.Item(i).Domain, "funimation.com")) And CBool(InStr(list.Item(i).Name, "src_token")) Then 'list.Item(i).Domain = "funimation.com" Then
+                    'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
+                    Token = "Token " + list.Item(i).Value
+                End If
+                If CBool(InStr(list.Item(i).Domain, "funimation.com")) And CBool(InStr(list.Item(i).Name, "region")) Then 'list.Item(i).Domain = "funimation.com" Then
+                    'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
+                    DeviceRegion = "?deviceType=web&" + list.Item(i).Name + "=" + list.Item(i).Value
+                End If
+            Next
+        Catch ex As Exception
+
+        End Try
+        ' region=US;
+        If Token = Nothing Then
+            MsgBox("No Token has been found...", MsgBoxStyle.Exclamation)
+        Else
+            FunimationToken = Token
+            MsgBox("Token found!" + vbNewLine + Token, MsgBoxStyle.Information)
+        End If
     End Sub
 
 

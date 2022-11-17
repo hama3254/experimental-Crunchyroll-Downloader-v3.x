@@ -103,7 +103,6 @@ Partial Class Browser
 
     End Sub
 
-    'Public WithEvents WebBrowser1 As Gecko.GeckoWebBrowser
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Button1 As Button
     Friend WithEvents Panel1 As Panel

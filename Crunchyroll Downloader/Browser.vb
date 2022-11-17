@@ -54,6 +54,7 @@ Public Class Browser
         Main.CookieList = Await WebView2.CoreWebView2.CookieManager.GetCookiesAsync(Uri)
     End Sub
 
+
     Private Sub GeckoFX_Load(sender As Object, e As EventArgs) Handles Me.Load
         Main.waveOutSetVolume(0, 0)
         If Me.Width > My.Computer.Screen.Bounds.Width Then

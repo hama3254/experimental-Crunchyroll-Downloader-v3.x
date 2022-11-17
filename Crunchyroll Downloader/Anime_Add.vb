@@ -79,11 +79,6 @@ Public Class Anime_Add
                     End If
                 End If
 
-                'If Main.locale = Nothing Then
-
-                '    CefSharp_ Browser.WebView2.CoreWebView2.Navigate(Url)
-                '    Exit Sub
-                'End If
 
 
             Catch ex As Exception
@@ -151,7 +146,6 @@ Public Class Anime_Add
             End If
 
             If CBool(InStr(v2Content, "curl:")) = True Then
-                'CefSharp_ Browser.WebView2.CoreWebView2.Navigate(Url)
                 Browser.WebView2.CoreWebView2.Navigate(Url)
                 StatusLabel.Text = "Status: loading in browser..."
                 Exit Sub
@@ -387,7 +381,6 @@ Public Class Anime_Add
     Private Sub Btn_dl_Click(sender As Object, e As EventArgs) Handles btn_dl.Click
 
 
-        'CefSharp_Browser.Show()
         If Application.OpenForms().OfType(Of Browser).Any = True Then
         Else
             Main.UserBowser = False
@@ -432,8 +425,10 @@ Public Class Anime_Add
                             Main.WebbrowserURL = textBox1.Text
 
                             If CBool(InStr(textBox1.Text, "funimation.com/v/")) Then
-                                Dim Episode() As String = textBox1.Text.Split(New String() {"/"}, System.StringSplitOptions.RemoveEmptyEntries)
+                                Dim Episode0() As String = textBox1.Text.Split(New String() {"?"}, System.StringSplitOptions.RemoveEmptyEntries)
+                                Dim Episode() As String = Episode0(0).Split(New String() {"/"}, System.StringSplitOptions.RemoveEmptyEntries)
                                 Dim v1JsonUrl As String = "https://d33et77evd9bgg.cloudfront.net/data/v1/episodes/" + Episode(Episode.Length - 1) + ".json"
+                                MsgBox(v1JsonUrl)
                                 Dim v1Json As String = Nothing
                                 Try
                                     Using client As New WebClient()
@@ -441,10 +436,11 @@ Public Class Anime_Add
                                         client.Headers.Add(My.Resources.ffmpeg_user_agend.Replace(Chr(34), ""))
                                         v1Json = client.DownloadString(v1JsonUrl)
                                     End Using
+                                    Main.WebbrowserURL = textBox1.Text
                                     Main.GetFunimationNewJS_VideoProxy(Nothing, v1Json)
                                     Exit Sub
                                 Catch ex As Exception
-                                    Debug.WriteLine("error- getting v1Json data for the bypasss")
+                                    Debug.WriteLine("error- getting v1Json data for the bypass")
                                     Debug.WriteLine(ex.ToString)
                                 End Try
 
@@ -642,24 +638,6 @@ Public Class Anime_Add
 
             Debug.WriteLine(EpisodeJsonURL)
 
-
-
-            'CefSharp_Browser.WebBrowser1.LoadUrl(EpisodeJsonURL)
-
-
-            'Try
-            '    Using client As New WebClient()
-            '        client.Encoding = System.Text.Encoding.UTF8
-            '        client.Headers.Add(My.Resources.ffmpeg_user_agend.Replace(Chr(34), ""))
-            '        EpisodeJson = client.DownloadString(EpisodeJsonURL)
-            '    End Using
-            'Catch ex As Exception
-            '    Debug.WriteLine("error- getting EpisodeJson data")
-            '    Debug.WriteLine(ex.ToString)
-            '    Exit Sub
-            'End Try
-
-
             Dim EpisodeJson As String = Main.Curl(EpisodeJsonURL) 'localHTML.Replace("<body>", "").Replace("</body>", "").Replace("<pre>", "").Replace("</pre>", "").Replace("</html>", "").Replace(My.Resources.htmlReplace, "")
 
 
@@ -825,7 +803,9 @@ Public Class Anime_Add
                             Dim UriUsed As String = ListBox1.GetItemText(ListBox1.Items(0))
 
                             If CBool(InStr(UriUsed, "funimation.com/v/")) Then
-                                Dim Episode() As String = UriUsed.Split(New String() {"/"}, System.StringSplitOptions.RemoveEmptyEntries)
+                                Dim Episode0() As String = textBox1.Text.Split(New String() {"?"}, System.StringSplitOptions.RemoveEmptyEntries)
+                                Dim Episode() As String = Episode0(0).Split(New String() {"/"}, System.StringSplitOptions.RemoveEmptyEntries)
+
                                 Dim v1JsonUrl As String = "https://d33et77evd9bgg.cloudfront.net/data/v1/episodes/" + Episode(Episode.Length - 1) + ".json"
                                 Dim v1Json As String = Nothing
                                 Try
