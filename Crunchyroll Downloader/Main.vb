@@ -888,7 +888,7 @@ Public Class Main
         End If
         cmd = cmd + "--no-alpn -fsSLm 15 -A " + My.Resources.ffmpeg_user_agend.Replace("User-Agent: ", "") + Cookies + Auth + Post + " " + Chr(34) + Url + Chr(34)
         Dim Proc As New Process
-        'MsgBox(cmd)
+        'Debug.WriteLine("CurlPost: " + cmd)
         Dim CurlOutput As String = Nothing
         Dim CurlError As String = Nothing
         ' all parameters required to run the process
@@ -3408,8 +3408,9 @@ Public Class Main
                     Anime_Add.StatusLabel.Text = "Status: nothing found"
                 End If
                 Me.Text = "Status: nothing found"
-                ProcessUrls()
-                Debug.WriteLine("3530: nothing found")
+                'ProcessUrls()
+                b = True
+                Debug.WriteLine("3412: nothing found")
                 Grapp_RDY = True
                 Exit Sub
             End If

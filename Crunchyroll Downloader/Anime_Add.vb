@@ -27,6 +27,8 @@ Public Class Anime_Add
         Main.LoadingUrl = Url
         Main.LoadedUrls.Clear()
 
+        'Browser.WebView2.CoreWebView2.Navigate(Url)
+        'Exit Sub
         'MsgBox(Url)
 
         If CBool(InStr(Url, "crunchyroll.com")) = True And CBool(InStr(Url, "series")) = True Or CBool(InStr(Url, "crunchyroll.com")) = True And CBool(InStr(Url, "watch")) = True Then
@@ -40,10 +42,11 @@ Public Class Anime_Add
             Browser.GetCookies(Url)
             'MsgBox("Cookies2")
 
-            'MsgBox(Main.CookieList.Count.ToString)
+            Debug.WriteLine(Main.CookieList.Count.ToString)
             If Main.CookieList.Count = 0 Then
                 Browser.WebView2.CoreWebView2.Navigate(Url)
                 StatusLabel.Text = "Status: loading in browser..."
+                Main.Text = "Status: loading in browser..."
                 Exit Sub
             End If
 
