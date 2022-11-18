@@ -108,5 +108,5 @@ Partial Class Browser
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Timer1 As Timer
     Friend WithEvents Timer2 As Timer
-    Friend WithEvents WebView2 As Microsoft.Web.WebView2.WinForms.WebView2
+    Public WithEvents WebView2 As Microsoft.Web.WebView2.WinForms.WebView2
 End Class

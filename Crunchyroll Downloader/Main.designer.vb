@@ -52,6 +52,7 @@ Partial Class Main
         Me.ItemBoundsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DummyItemToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.ScanTimeout = New System.Windows.Forms.Timer(Me.components)
         CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ConsoleBar, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MetroStyleManager1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -229,6 +230,10 @@ Partial Class Main
         resources.ApplyResources(Me.Panel1, "Panel1")
         Me.Panel1.Name = "Panel1"
         '
+        'ScanTimeout
+        '
+        Me.ScanTimeout.Interval = 1000
+        '
         'Main
         '
         Me.ApplyImageInvert = True
@@ -286,4 +291,5 @@ Partial Class Main
     Friend WithEvents ItemBoundsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DummyItemToolStripMenuItem As ToolStripMenuItem
     Public WithEvents Panel1 As Panel
+    Friend WithEvents ScanTimeout As Timer
 End Class

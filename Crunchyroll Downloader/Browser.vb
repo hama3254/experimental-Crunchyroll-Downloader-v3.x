@@ -19,9 +19,10 @@ Public Class Browser
     Private Sub WebView2_CoreWebView2InitializationCompleted(sender As Object, e As CoreWebView2InitializationCompletedEventArgs) Handles WebView2.CoreWebView2InitializationCompleted
         WebView2.CoreWebView2.AddWebResourceRequestedFilter("https://www.crunchyroll.com/*", CoreWebView2WebResourceContext.All)
         WebView2.CoreWebView2.AddWebResourceRequestedFilter("https://www.funimation.com/*", CoreWebView2WebResourceContext.All)
+        'WebView2.CoreWebView2.AddWebResourceRequestedFilter("*", CoreWebView2WebResourceContext.All)
 
         AddHandler WebView2.CoreWebView2.WebResourceRequested, AddressOf ObserveHttp
-
+        WebView2.CoreWebView2.Settings.UserAgent = My.Resources.ffmpeg_user_agend.Replace(Chr(34), "").Replace("User-Agent: ", "")
         If WebView2.CoreWebView2.Source = "about:blank" Or WebView2.CoreWebView2.Source = Nothing Then
             'TextBox1.Text = Main.Startseite
             WebView2.CoreWebView2.Navigate(Main.Startseite)
@@ -32,27 +33,32 @@ Public Class Browser
 
 
     Private Sub WebView2_SourceChanged(sender As Object, e As CoreWebView2SourceChangedEventArgs) Handles WebView2.SourceChanged
-        TextBox1.Text = WebView2.CoreWebView2.Source
+        Try
+            TextBox1.Text = WebView2.CoreWebView2.Source
+
+        Catch ex As Exception
+        End Try
 
     End Sub
 
 
 
     Private Sub WebView2_NavigationCompleted(sender As Object, e As CoreWebView2NavigationCompletedEventArgs) Handles WebView2.NavigationCompleted
-        'Dim HTML As String = WebView2.CoreWebView2.
+        ' Dim HTML As String = WebView2.CoreWebView2.
         'TextBox1.Text = WebView2.CoreWebView2.Source
+        ' Exit Sub
         If e.HttpStatusCode = 200 Then
             Dim DocumentTitle As String = WebView2.CoreWebView2.DocumentTitle
 
             Debug.WriteLine("NavigationCompleted: " + Date.Now.ToString)
             Main.WebbrowserURL = WebView2.CoreWebView2.Source
-            'TextBox1.Text = Main.WebbrowserURL
+            TextBox1.Text = Main.WebbrowserURL
 
-            Main.WebbrowserText = "" 'HTML
+            'Main.WebbrowserText = "" 'HTML
             Main.WebbrowserTitle = DocumentTitle
-            Main.ProcessHTML("", WebView2.CoreWebView2.Source, DocumentTitle)
+            Main.ProcessHTML("", Main.WebbrowserURL, DocumentTitle)
 
-            GetCookies(WebView2.CoreWebView2.Source)
+            GetCookies(Main.WebbrowserURL)
         End If
 
     End Sub
@@ -86,7 +92,7 @@ Public Class Browser
         End Try
 
         If Main.UserBowser = False Then
-            Me.Location = New Point(-10000, -10000)
+            Me.Location = New Point(-1500, 0)
 
         End If
         WebView2.Source = New Uri(Main.Startseite)
@@ -233,6 +239,8 @@ Public Class Browser
     Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
         Me.Close()
     End Sub
+
+
 
 
 

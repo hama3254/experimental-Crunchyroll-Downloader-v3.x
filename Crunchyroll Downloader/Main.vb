@@ -33,7 +33,7 @@ Public Class Main
     Public CrBetaBasic As String = Nothing
     Public locale As String = Nothing
     Public Url_locale As String = Nothing
-
+    Dim ProcessCounting As Integer = 30
     'Public CrBetaObjects As String = Nothing
     'Public CrBetaStreams As String = Nothing
     'Public CrBetaStreamsUrl As String = Nothing
@@ -3366,91 +3366,48 @@ Public Class Main
             Exit Sub
         End If
         'MsgBox("loaded!")
-        If CBool(InStr(Address, "crunchyroll.com")) Then
+        If CBool(InStr(Address, "crunchyroll.com")) Or CBool(InStr(Address, "funimation.com")) Then
             WebbrowserURL = Address
 
+            ScanTimeout.Start()
 
-            For i As Integer = 10 To 1 Step -1
-                If Application.OpenForms().OfType(Of Anime_Add).Any = True Then
-                    Anime_Add.StatusLabel.Text = "Status: Processing Url " + i.ToString
-                End If
-                Me.Text = "Status: Processing Url " + i.ToString
 
-                Pause(1)
+            'ElseIf CBool(InStr(Address, "funimation.com")) Then
 
-                If b = True Then
-                    If Application.OpenForms().OfType(Of Anime_Add).Any = True Then
-                        Anime_Add.StatusLabel.Text = "Status: idle"
-                    End If
-                    Me.Text = "Crunchyroll Downloader"
-                    Grapp_RDY = True
-                    LoadedUrls.Clear()
-                    Debug.WriteLine("canceled....")
-                    Exit Sub
-                End If
-            Next
-
-            Debug.WriteLine("LoadedUrls: " + LoadedUrls.Count.ToString)
-            For i As Integer = 0 To LoadedUrls.Count - 1
-                Debug.WriteLine("LoadedUrls: " + LoadedUrls(i))
-            Next
-
-            If LoadedUrls.Count > 0 Then
-                If Application.OpenForms().OfType(Of Anime_Add).Any = True Then
-                    Anime_Add.StatusLabel.Text = "Status: Processing... "
-                End If
-                Me.Text = "Status: Processing... "
-                ProcessUrls()
-                Debug.WriteLine("ProcessUrls")
-                Exit Sub
-            Else
-                If Application.OpenForms().OfType(Of Anime_Add).Any = True Then
-                    Anime_Add.StatusLabel.Text = "Status: nothing found"
-                End If
-                Me.Text = "Status: nothing found"
-                'ProcessUrls()
-                b = True
-                Debug.WriteLine("3412: nothing found")
-                Grapp_RDY = True
-                Exit Sub
-            End If
-
-        ElseIf CBool(InStr(Address, "funimation.com")) Then
-
-            Dim list As List(Of CoreWebView2Cookie) = Await Browser.WebView2.CoreWebView2.CookieManager.GetCookiesAsync("https://www.funimation.com")
-            Dim Cookie As String = ""
-            For i As Integer = 0 To list.Count - 1
-                If CBool(InStr(list.Item(i).Domain, "funimation.com")) Then 'list.Item(i).Domain = "funimation.com" Then
-                    'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
-                    Cookie = Cookie + list.Item(i).Name + "=" + list.Item(i).Value + ";"
-                End If
-                If CBool(InStr(list.Item(i).Domain, "funimation.com")) And CBool(InStr(list.Item(i).Name, "src_token")) Then 'list.Item(i).Domain = "funimation.com" Then
-                    'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
-                    FunimationToken = "Token " + list.Item(i).Value
-                End If
-            Next
-            If b = False Then
-                WebbrowserCookie = Cookie
-                WebbrowserURL = Address
-                Text = "Crunchyroll Downloader"
-                For i As Integer = 10 To 0 Step -1
-                    Anime_Add.StatusLabel.Text = "Status: checking traffic - " + i.ToString
-                    Pause(1)
-                Next
-                Dim Evaluator = New Thread(Sub() Me.ProcessUrls())
-                Evaluator.Start()
-                Exit Sub
-            End If
-        Else
-            WebbrowserURL = Address
-            Text = "Crunchyroll Downloader"
-            For i As Integer = 10 To 0 Step -1
-                Anime_Add.StatusLabel.Text = "Status: checking traffic - " + i.ToString
-                Pause(1)
-            Next
-            ProcessUrls()
-            'Pause(10)
-            'ProcessUrls()
+            '    Dim list As List(Of CoreWebView2Cookie) = Await Browser.WebView2.CoreWebView2.CookieManager.GetCookiesAsync("https://www.funimation.com")
+            '    Dim Cookie As String = ""
+            '    For i As Integer = 0 To list.Count - 1
+            '        If CBool(InStr(list.Item(i).Domain, "funimation.com")) Then 'list.Item(i).Domain = "funimation.com" Then
+            '            'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
+            '            Cookie = Cookie + list.Item(i).Name + "=" + list.Item(i).Value + ";"
+            '        End If
+            '        If CBool(InStr(list.Item(i).Domain, "funimation.com")) And CBool(InStr(list.Item(i).Name, "src_token")) Then 'list.Item(i).Domain = "funimation.com" Then
+            '            'MsgBox(list.Item(i).Name + vbNewLine + list.Item(i).Value)
+            '            FunimationToken = "Token " + list.Item(i).Value
+            '        End If
+            '    Next
+            '    If b = False Then
+            '        WebbrowserCookie = Cookie
+            '        WebbrowserURL = Address
+            '        Text = "Crunchyroll Downloader"
+            '        For i As Integer = 10 To 0 Step -1
+            '            Anime_Add.StatusLabel.Text = "Status: checking traffic - " + i.ToString
+            '            Pause(1)
+            '        Next
+            '        Dim Evaluator = New Thread(Sub() Me.ProcessUrls())
+            '        Evaluator.Start()
+            '        Exit Sub
+            '    End If
+            'Else
+            '    WebbrowserURL = Address
+            '    Text = "Crunchyroll Downloader"
+            '    For i As Integer = 10 To 0 Step -1
+            '        Anime_Add.StatusLabel.Text = "Status: checking traffic - " + i.ToString
+            '        Pause(1)
+            '    Next
+            '    ProcessUrls()
+            '    'Pause(10)
+            '    'ProcessUrls()
         End If
         'End If
     End Sub
@@ -3459,6 +3416,64 @@ Public Class Main
 
 
 #End Region
+
+    Private Sub Process(sender As Object, e As EventArgs) Handles ScanTimeout.Tick
+        If b = True Then
+            If Application.OpenForms().OfType(Of Anime_Add).Any = True Then
+                Anime_Add.StatusLabel.Text = "Status: idle"
+            End If
+            Me.Text = "Crunchyroll Downloader"
+            Grapp_RDY = True
+            LoadedUrls.Clear()
+            Debug.WriteLine("canceled....")
+            ProcessCounting = 30
+            ScanTimeout.Enabled = False
+            Exit Sub
+        End If
+
+        If LoadedUrls.Count = 0 And ProcessCounting > 0 Then
+
+            If Application.OpenForms().OfType(Of Anime_Add).Any = True Then
+                Anime_Add.StatusLabel.Text = "Status: Processing Url " + ProcessCounting.ToString
+            End If
+            Me.Text = "Status: Processing Url " + ProcessCounting.ToString
+
+            ProcessCounting = ProcessCounting - 1
+            Exit Sub
+        ElseIf LoadedUrls.Count = 0 And ProcessCounting > 0 Then
+            If Application.OpenForms().OfType(Of Anime_Add).Any = True Then
+                Anime_Add.StatusLabel.Text = "Status: nothing found"
+            End If
+            Me.Text = "Status: nothing found"
+            'ProcessUrls()
+            b = True
+            Debug.WriteLine("3412: nothing found")
+            Grapp_RDY = True
+            ProcessCounting = 30
+            ScanTimeout.Enabled = False
+            Exit Sub
+        End If
+
+
+        Debug.WriteLine("LoadedUrls: " + LoadedUrls.Count.ToString)
+        'For i As Integer = 0 To LoadedUrls.Count - 1
+        '    Debug.WriteLine("LoadedUrls: " + LoadedUrls(i))
+        'Next
+
+        If Application.OpenForms().OfType(Of Anime_Add).Any = True Then
+            Anime_Add.StatusLabel.Text = "Status: Processing... "
+        End If
+        Me.Text = "Status: Processing... "
+        ProcessUrls()
+        Debug.WriteLine("ProcessUrls")
+
+        ProcessCounting = 30
+        ScanTimeout.Enabled = False
+        Exit Sub
+
+
+
+    End Sub
     Public Sub ProcessUrls()
         Debug.WriteLine(LoadedUrls.Count.ToString)
         Debug.WriteLine(Date.Now.ToString + " Thread Name: " + Thread.CurrentThread.Name)
@@ -4250,6 +4265,8 @@ Public Class Main
 
 
     End Sub
+
+
 
 
 

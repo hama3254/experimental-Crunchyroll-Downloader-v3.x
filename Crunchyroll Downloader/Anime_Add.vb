@@ -27,7 +27,7 @@ Public Class Anime_Add
         Main.LoadingUrl = Url
         Main.LoadedUrls.Clear()
 
-        'Browser.WebView2.CoreWebView2.Navigate(Url)
+        'Browser.WebView2.Source = New Uri(Url)
         'Exit Sub
         'MsgBox(Url)
 
