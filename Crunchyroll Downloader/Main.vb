@@ -1825,30 +1825,41 @@ Public Class Main
                             End If
                         End If
                     End If
-                    Dim ffmpeg_url_1 As String() = str.Split(New String() {Reso2 + ","}, System.StringSplitOptions.RemoveEmptyEntries)
-                    Dim ffmpeg_url_3 As String() = Nothing
-                    Dim ffmpeg_url_2 As String() = ffmpeg_url_1(1).Split(New [Char]() {Chr(34)})
-                    ffmpeg_url_3 = ffmpeg_url_2(2).Split(New [Char]() {System.Convert.ToChar("#")})
+                    Dim ffmpeg_url_3 As String = Nothing
+                    Dim LineChar As String = vbLf
+                    If CBool(InStr(str, vbCrLf)) Then
+                        LineChar = vbCrLf
+                    ElseIf CBool(InStr(str, vbCr)) Then
+                        LineChar = vbCr
+                    End If
+                    Dim ffmpeg_url_1 As String() = str.Split(New String() {LineChar}, System.StringSplitOptions.RemoveEmptyEntries)
+
+                    For i As Integer = 0 To ffmpeg_url_1.Count - 2 'Step 2
+                        If CBool(InStr(ffmpeg_url_1(i), Reso2 + ",")) Then
+                            ffmpeg_url_3 = ffmpeg_url_1(i + 1)
+                        End If
+                    Next
+                    'MsgBox(ffmpeg_url_3)
                     Debug.WriteLine("Line 2120-CR_audio_locale: " + CR_audio_locale)
 
-                    If MergeSubs = True And CR_MetadataUsage = False Then
-                        URL_DL = "-i " + Chr(34) + ffmpeg_url_3(0).Trim() + Chr(34) + SoftSubMergeURLs + SoftSubMergeMaps + " " + ffmpeg_command_temp + " -c:s " + MergeSubsFormat + SoftSubMergeMetatata + " -metadata:s:a:0 language=" + CCtoMP4CC(CR_audio_locale)
+                        If MergeSubs = True And CR_MetadataUsage = False Then
+                        URL_DL = "-i " + Chr(34) + ffmpeg_url_3.Trim() + Chr(34) + SoftSubMergeURLs + SoftSubMergeMaps + " " + ffmpeg_command_temp + " -c:s " + MergeSubsFormat + SoftSubMergeMetatata + " -metadata:s:a:0 language=" + CCtoMP4CC(CR_audio_locale)
                     ElseIf MergeSubs = False And CR_MetadataUsage = False Then
-                        URL_DL = "-i " + Chr(34) + ffmpeg_url_3(0).Trim() + Chr(34) + " -metadata:s:a:0 language=" + CCtoMP4CC(CR_audio_locale) + " " + ffmpeg_command_temp
+                        URL_DL = "-i " + Chr(34) + ffmpeg_url_3.Trim() + Chr(34) + " -metadata:s:a:0 language=" + CCtoMP4CC(CR_audio_locale) + " " + ffmpeg_command_temp
                     ElseIf MergeSubs = True And CR_MetadataUsage = True Then
-                        URL_DL = "-i " + Chr(34) + ffmpeg_url_3(0).Trim() + Chr(34) + " -i " + Chr(34) + Mdata_File + Chr(34) + SoftSubMergeURLs + SoftSubMergeMaps + " -map_metadata 1" + " " + ffmpeg_command_temp + " -c:s " + MergeSubsFormat + SoftSubMergeMetatata + " -metadata:s:a:0 language=" + CCtoMP4CC(CR_audio_locale)
+                        URL_DL = "-i " + Chr(34) + ffmpeg_url_3.Trim() + Chr(34) + " -i " + Chr(34) + Mdata_File + Chr(34) + SoftSubMergeURLs + SoftSubMergeMaps + " -map_metadata 1" + " " + ffmpeg_command_temp + " -c:s " + MergeSubsFormat + SoftSubMergeMetatata + " -metadata:s:a:0 language=" + CCtoMP4CC(CR_audio_locale)
                     ElseIf MergeSubs = False And CR_MetadataUsage = True Then
-                        URL_DL = "-i " + Chr(34) + ffmpeg_url_3(0).Trim() + Chr(34) + " -i " + Chr(34) + Mdata_File + Chr(34) + " -map_metadata 1" + " -metadata:s:a:0 language=" + CCtoMP4CC(CR_audio_locale) + " " + ffmpeg_command_temp
+                        URL_DL = "-i " + Chr(34) + ffmpeg_url_3.Trim() + Chr(34) + " -i " + Chr(34) + Mdata_File + Chr(34) + " -map_metadata 1" + " -metadata:s:a:0 language=" + CCtoMP4CC(CR_audio_locale) + " " + ffmpeg_command_temp
 
                     End If
 
-                    'If MergeSubs = True And CR_MetadataUsage = False Then
-                    '    URL_DL = "-i " + Chr(34) + ffmpeg_url_3(0).Trim() + Chr(34) + SoftSubMergeURLs + SoftSubMergeMaps + " " + ffmpeg_command + " -c:s " + MergeSubsFormat + SoftSubMergeMetatata + " -metadata:s:a:0 language=" + CCtoMP4CC(CR_audio_locale)
-                    'Else
-                    '    URL_DL = "-i " + Chr(34) + ffmpeg_url_3(0).Trim() + Chr(34) + " -metadata:s:a:0 language=" + CCtoMP4CC(CR_audio_locale) + " " + ffmpeg_command_temp
-                    'End If
+                        'If MergeSubs = True And CR_MetadataUsage = False Then
+                        '    URL_DL = "-i " + Chr(34) + ffmpeg_url_3(0).Trim() + Chr(34) + SoftSubMergeURLs + SoftSubMergeMaps + " " + ffmpeg_command + " -c:s " + MergeSubsFormat + SoftSubMergeMetatata + " -metadata:s:a:0 language=" + CCtoMP4CC(CR_audio_locale)
+                        'Else
+                        '    URL_DL = "-i " + Chr(34) + ffmpeg_url_3(0).Trim() + Chr(34) + " -metadata:s:a:0 language=" + CCtoMP4CC(CR_audio_locale) + " " + ffmpeg_command_temp
+                        'End If
+                    End If
                 End If
-            End If
 #Region "thumbnail"
             Dim thumbnail As String() = ObjectJson.Split(New String() {"https://"}, System.StringSplitOptions.RemoveEmptyEntries)
             Dim thumbnail2 As String() = thumbnail(1).Split(New String() {Chr(34) + "}"}, System.StringSplitOptions.RemoveEmptyEntries) '(New [Char]() {"-"})
@@ -3309,7 +3320,7 @@ Public Class Main
 
 
 #Region "process html"
-    Public Async Sub ProcessHTML(ByVal document As String, ByVal Address As String, ByVal DocumentTitle As String)
+    Public Sub ProcessHTML(ByVal document As String, ByVal Address As String, ByVal DocumentTitle As String)
         Dim localHTML As String = document
         Debug.WriteLine(Date.Now.ToString + "." + Date.Now.Millisecond.ToString)
         Debug.WriteLine(Address)

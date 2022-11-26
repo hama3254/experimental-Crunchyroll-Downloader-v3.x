@@ -92,7 +92,7 @@ Public Class Browser
         End Try
 
         If Main.UserBowser = False Then
-            Me.Location = New Point(-1500, 0)
+            Me.Location = New Point(-10000, 10000)
 
         End If
         WebView2.Source = New Uri(Main.Startseite)
