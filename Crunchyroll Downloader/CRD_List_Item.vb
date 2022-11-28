@@ -76,7 +76,7 @@ Public Class CRD_List_Item
         Label_website.Location = New Point(195, 12)
         Label_Anime.Location = New Point(195, 40)
         Label_Reso.Location = New Point(195, 97)
-        Label_Hardsub.Location = New Point(265, 97)
+        Label_Hardsub.Location = New Point(255, 97)
         Label_percent.SetBounds(Me.Width - 400, 97, 378, 27)
         Label_percent.AutoSize = False
         ProgressBar1.SetBounds(195, 70, 601, 20)

@@ -99,7 +99,7 @@ Public Class Main
     Public Reso As Integer
     Public Season_Prefix As String = "[default season prefix]"
     Public Episode_Prefix As String = "[default episode prefix]"
-    Dim Reso2 As String
+
     Public ResoSave As String = "6666x6666"
     Public ResoFunBackup As String = "6666x6666"
     Public SubSprache As String
@@ -1201,6 +1201,8 @@ Public Class Main
             Dim CR_episode_int As String = Nothing
             Dim CR_title As String = Nothing
             Dim CR_audio_locale As String = Nothing
+            Dim ResoUsed As String = "x" + Reso.ToString
+
 #Region "Name + Pfad"
             Dim Pfad2 As String
             Dim TextBox2_Text As String = Nothing
@@ -1551,7 +1553,7 @@ Public Class Main
             '    Exit Sub
             'End Try
 
-            Dim LangNew As String = ConvertCC(SubSprache)
+            Dim CR_HardSubLang As String = ConvertCC(SubSprache)
 #End Region
 #Region "Download softsub file or build ffmpeg cmd"
             Dim SoftSubs2 As New List(Of String)
@@ -1701,7 +1703,7 @@ Public Class Main
 
             For i As Integer = 0 To CR_Streams.Count - 1
                 Debug.WriteLine(CR_Streams.Item(i).subLang)
-                If CR_Streams.Item(i).subLang = LangNew Then
+                If CR_Streams.Item(i).subLang = CR_HardSubLang Then
                     CR_URI_Master = CR_Streams.Item(i).Url
                 ElseIf CR_Streams.Item(i).subLang = "" And CR_audio_locale IsNot "ja-JP" And DubMode = True Then 'nothing/raw
                     RawStream = CR_Streams.Item(i).Url
@@ -1721,12 +1723,12 @@ Public Class Main
                 If UserCloseDialog = True Then
                     Throw New System.Exception(Chr(34) + "UserAbort" + Chr(34))
                 Else
-                    LangNew = ResoBackString
+                    CR_HardSubLang = ResoBackString
                     ResoBackString = Nothing
 
                     For i As Integer = 0 To CR_Streams.Count - 1
                         Debug.WriteLine(CR_Streams.Item(i).subLang)
-                        If CR_Streams.Item(i).subLang = LangNew Then
+                        If CR_Streams.Item(i).subLang = CR_HardSubLang Then
                             CR_URI_Master = CR_Streams.Item(i).Url
                         End If
 
@@ -1804,11 +1806,11 @@ Public Class Main
 
                     'MsgBox(str)
                     If CBool(InStr(str, "x" + Reso.ToString + ",")) Then
-                        Reso2 = "x" + Reso.ToString
+                        ResoUsed = "x" + Reso.ToString
                     Else
                         'MsgBox(str)
                         If CBool(InStr(str, ResoSave + ",")) Then
-                            Reso2 = Reso2
+                            ResoUsed = ResoSave
                         Else
                             Me.Invoke(New Action(Function() As Object
                                                      DialogTaskString = "Resolution"
@@ -1820,7 +1822,8 @@ Public Class Main
                             If UserCloseDialog = True Then
                                 Throw New System.Exception(Chr(34) + "UserAbort" + Chr(34))
                             Else
-                                Reso2 = ResoBackString
+                                MsgBox(ResoBackString)
+                                ResoUsed = ResoBackString
                                 ResoSave = ResoBackString
                             End If
                         End If
@@ -1835,7 +1838,7 @@ Public Class Main
                     Dim ffmpeg_url_1 As String() = str.Split(New String() {LineChar}, System.StringSplitOptions.RemoveEmptyEntries)
 
                     For i As Integer = 0 To ffmpeg_url_1.Count - 2 'Step 2
-                        If CBool(InStr(ffmpeg_url_1(i), Reso2 + ",")) Then
+                        If CBool(InStr(ffmpeg_url_1(i), ResoUsed + ",")) Then
                             ffmpeg_url_3 = ffmpeg_url_1(i + 1)
                         End If
                     Next
@@ -1865,27 +1868,39 @@ Public Class Main
             Dim thumbnail2 As String() = thumbnail(1).Split(New String() {Chr(34) + "}"}, System.StringSplitOptions.RemoveEmptyEntries) '(New [Char]() {"-"})
             Dim thumbnail3 As String = "https://" + thumbnail2(0).Replace("\/", "/")
 #End Region
-#Region "<li> constructor"
-            Dim Subsprache3 As String = "none" 'HardSubValuesToDisplay(SubSprache2.Replace(Chr(34), ""))
-            Dim ResoHTMLDisplay As String = Nothing
-            If ResoBackString = Nothing Then
-                ResoHTMLDisplay = Reso.ToString + "p"
-            ElseIf DialogTaskString = "Language" Then
-                ResoHTMLDisplay = Reso.ToString + "p"
-            Else
-                Dim ResoHTML As String() = ResoBackString.Split(New String() {"x"}, System.StringSplitOptions.RemoveEmptyEntries)
-                If ResoHTML.Count > 1 Then
-                    ResoHTMLDisplay = ResoHTML(1) + "p"
-                Else
-                    ResoHTMLDisplay = ResoHTML(0) + "p"
-                End If
+#Region "item constructor"
+            Dim SubType_Value As String = Nothing 'HardSubValuesToDisplay(SubSprache2.Replace(Chr(34), ""))
+
+            MsgBox(CR_HardSubLang)
+
+            If Not CR_HardSubLang = "" Then
+                SubType_Value = "Hardsub: " + HardSubValuesToDisplay(CR_HardSubLang)
             End If
+
+            If SoftSubs2.Count > 0 And CR_HardSubLang = "" Then
+                SubType_Value = "Softsubs: "
+                For i As Integer = 0 To SoftSubs2.Count - 1
+                    SubType_Value = SubType_Value + HardSubValuesToDisplay(SoftSubs2(i))
+                    If i < SoftSubs2.Count - 1 Then
+                        SubType_Value = SubType_Value + ", "
+                    End If
+                Next
+            End If
+
+            Dim ResoHTMLDisplay As String = Nothing
+            Dim ResoHTML As String() = ResoUsed.Split(New String() {"x"}, System.StringSplitOptions.RemoveEmptyEntries)
+            If ResoHTML.Count > 1 Then
+                ResoHTMLDisplay = ResoHTML(1) + "p"
+            Else
+                ResoHTMLDisplay = ResoHTML(0) + "p"
+            End If
+
             Dim L2Name As String = String.Join(" ", CR_FilenName.Split(invalids, StringSplitOptions.RemoveEmptyEntries)).TrimEnd("."c) 'System.Text.RegularExpressions.Regex.Replace(CR_FilenName_Backup, "[^\w\\-]", " ")
+
             If Reso = 42 And HybridMode = False Then
                 ResoHTMLDisplay = "[Auto]"
-            ElseIf Reso = 42 And HybridMode = False Then
-                ResoHTMLDisplay = Reso2
             End If
+
             Pfad_DL = Pfad2
             Dim L1Name_Split As String() = WebsiteURL.Split(New String() {"/"}, System.StringSplitOptions.RemoveEmptyEntries)
             Dim L1Name As String = L1Name_Split(1).Replace("www.", "") + " | Dub : " + HardSubValuesToDisplay(CR_audio_locale)
@@ -1896,7 +1911,7 @@ Public Class Main
 
 
             Me.Invoke(New Action(Function() As Object
-                                     ListItemAdd(Path.GetFileName(Pfad_DL.Replace(Chr(34), "")), L1Name, L2Name, ResoHTMLDisplay, Subsprache3, SubValuesToDisplay(), thumbnail3, URL_DL, Pfad_DL)
+                                     ListItemAdd(Path.GetFileName(Pfad_DL.Replace(Chr(34), "")), L1Name, L2Name, ResoHTMLDisplay, SubType_Value, SubValuesToDisplay(), thumbnail3, URL_DL, Pfad_DL)
                                      Return Nothing
                                  End Function))
             'liList.Add(My.Resources.htmlvorThumbnail + thumbnail3 + My.Resources.htmlnachTumbnail + CR_title + " <br> " + CR_season_number + " " + CR_episode + My.Resources.htmlvorAufloesung + ResoHTMLDisplay + My.Resources.htmlvorSoftSubs + vbNewLine + SubValuesToDisplay() + My.Resources.htmlvorHardSubs + Subsprache3 + My.Resources.htmlnachHardSubs + "<!-- " + L2Name + "-->")

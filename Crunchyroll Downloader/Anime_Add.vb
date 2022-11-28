@@ -64,7 +64,7 @@ Public Class Anime_Add
 
                 Next
 
-                If CBool(InStr(Url, "series")) Then
+                If CBool(InStr(Url, "/series")) Then
                     Dim locale1() As String = Url.Split(New String() {"crunchyroll.com/"}, System.StringSplitOptions.RemoveEmptyEntries)
                     Dim locale2() As String = locale1(1).Split(New String() {"/series"}, System.StringSplitOptions.RemoveEmptyEntries)
                     Main.locale = Main.Convert_locale(locale2(0))
@@ -73,10 +73,11 @@ Public Class Anime_Add
                     Else
                         Main.Url_locale = locale2(0)
                     End If
-                ElseIf CBool(InStr(Url, "watch")) Then
+                ElseIf CBool(InStr(Url, "/watch")) Then
                     Dim locale1() As String = Url.Split(New String() {"crunchyroll.com/"}, System.StringSplitOptions.RemoveEmptyEntries)
                     Dim locale2() As String = locale1(1).Split(New String() {"/watch"}, System.StringSplitOptions.RemoveEmptyEntries)
                     'MsgBox(locale2(0))
+
                     Main.locale = Main.Convert_locale(locale2(0))
                     'End If
                     If Main.locale = "en-US" Then
@@ -86,7 +87,7 @@ Public Class Anime_Add
                     End If
                 End If
 
-
+                'MsgBox("locale: " + Main.locale)
 
             Catch ex As Exception
                 Browser.WebView2.CoreWebView2.Navigate(Url)
@@ -182,7 +183,7 @@ Public Class Anime_Add
             Dim key_pair_id2() As String = key_pair_id(1).Split(New String() {Chr(34) + "," + Chr(34)}, System.StringSplitOptions.RemoveEmptyEntries)
 
 
-            If CBool(InStr(Url, "crunchyroll.com")) = True And CBool(InStr(Url, "series")) = True Then
+            If CBool(InStr(Url, "crunchyroll.com")) = True And CBool(InStr(Url, "series/")) = True Then
 
 
                 Dim Series_idUrlBuilder() As String = Url.Split(New String() {"series/"}, System.StringSplitOptions.RemoveEmptyEntries)
@@ -195,7 +196,7 @@ Public Class Anime_Add
                 Main.GetBetaSeasons(SeriesUrl)
 
 
-            ElseIf CBool(InStr(Url, "crunchyroll.com")) = True And CBool(InStr(Url, "watch")) = True And CBool(Main.CrBetaBasic = Nothing) = False Then
+            ElseIf CBool(InStr(Url, "crunchyroll.com")) = True And CBool(InStr(Url, "watch/")) = True And CBool(Main.CrBetaBasic = Nothing) = False Then
 
 
 
@@ -221,13 +222,13 @@ Public Class Anime_Add
                         ObjectJson = Main.Curl(ObjectsUrl)
                     End If
 
-                        If CBool(InStr(ObjectJson, "curl:")) = True Then
+                    If CBool(InStr(ObjectJson, "curl:")) = True Then
                         Browser.WebView2.CoreWebView2.Navigate(Url)
                         Exit Sub
-                        ElseIf CBool(InStr(ObjectJson, "videos/")) = False Then
+                    ElseIf CBool(InStr(ObjectJson, "videos/")) = False Then
 
-                            StatusLabel.Text = "Status: Failed - no video, check CR login"
-                            Main.Text = "Status: Failed - no video, check CR login"
+                        StatusLabel.Text = "Status: Failed - no video, check CR login"
+                        Main.Text = "Status: Failed - no video, check CR login"
                         Debug.WriteLine("Status: Failed - no video, check CR login")
                         If GroupBox3.Visible = True Then
                             GroupBox3.Visible = False
@@ -237,36 +238,37 @@ Public Class Anime_Add
                             btn_dl.BackgroundImage = My.Resources.main_button_download_default
                         End If
                         Exit Sub
-                        End If
+                    End If
 
-                    Catch ex As Exception
+                Catch ex As Exception
                     Browser.WebView2.CoreWebView2.Navigate(Url)
                     Exit Sub
-                    End Try
+                End Try
 
-                    Try
-                        Dim StreamsUrlBuilder() As String = ObjectJson.Split(New String() {"videos/"}, System.StringSplitOptions.RemoveEmptyEntries)
-                        Dim StreamsUrlBuilder2() As String = StreamsUrlBuilder(1).Split(New String() {"/streams"}, System.StringSplitOptions.RemoveEmptyEntries)
+                Try
+                    Dim StreamsUrlBuilder() As String = ObjectJson.Split(New String() {"videos/"}, System.StringSplitOptions.RemoveEmptyEntries)
+                    Dim StreamsUrlBuilder2() As String = StreamsUrlBuilder(1).Split(New String() {"/streams"}, System.StringSplitOptions.RemoveEmptyEntries)
 
-                        Dim StreamsUrlBuilder3() As String = ObjectsUrl.Split(New String() {"objects/"}, System.StringSplitOptions.RemoveEmptyEntries)
-                        Dim StreamsUrlBuilder4() As String = StreamsUrlBuilder3(1).Split(New String() {"?"}, System.StringSplitOptions.RemoveEmptyEntries)
+                    Dim StreamsUrlBuilder3() As String = ObjectsUrl.Split(New String() {"objects/"}, System.StringSplitOptions.RemoveEmptyEntries)
+                    Dim StreamsUrlBuilder4() As String = StreamsUrlBuilder3(1).Split(New String() {"?"}, System.StringSplitOptions.RemoveEmptyEntries)
 
-                        StreamsUrl = StreamsUrlBuilder3(0) + "videos/" + StreamsUrlBuilder2(0) + "/streams?" + StreamsUrlBuilder4(1)
+                    StreamsUrl = StreamsUrlBuilder3(0) + "videos/" + StreamsUrlBuilder2(0) + "/streams?" + StreamsUrlBuilder4(1)
 
-                        ' Debug.WriteLine(StreamsUrl)
-                    Catch ex As Exception
+                    ' Debug.WriteLine(StreamsUrl)
+                Catch ex As Exception
                     Browser.WebView2.CoreWebView2.Navigate(Url)
                     Exit Sub
-                    End Try
+                End Try
 
-                    Main.GetBetaVideoProxy(StreamsUrl, Url)
+                Main.GetBetaVideoProxy(StreamsUrl, Url)
 
 
-                Else
+            Else
                 Browser.WebView2.CoreWebView2.Navigate(Url)
             End If
-
-            End If
+        Else
+            'to do
+        End If
     End Sub
 
     Private Sub ComboBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox2.SelectedIndexChanged

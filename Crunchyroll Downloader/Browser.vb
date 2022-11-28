@@ -47,6 +47,7 @@ Public Class Browser
         ' Dim HTML As String = WebView2.CoreWebView2.
         'TextBox1.Text = WebView2.CoreWebView2.Source
         ' Exit Sub
+
         If e.HttpStatusCode = 200 Then
             Dim DocumentTitle As String = WebView2.CoreWebView2.DocumentTitle
 
