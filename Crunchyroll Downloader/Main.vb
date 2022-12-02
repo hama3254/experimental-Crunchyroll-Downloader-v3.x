@@ -847,7 +847,7 @@ Public Class Main
             CurlOutput = CurlOutput + sr.ReadToEnd
             CurlError = CurlError + sr2.ReadToEnd
             'ffmpegOutput2 = sr.ReadLine
-            Debug.WriteLine(CurlOutput)
+            'Debug.WriteLine(CurlOutput)
 
         Loop Until Proc.HasExited Or Microsoft.VisualBasic.DateAndTime.Timer < finish
 
@@ -915,7 +915,7 @@ Public Class Main
             CurlOutput = CurlOutput + sr.ReadToEnd
             CurlError = CurlError + sr2.ReadToEnd
             'ffmpegOutput2 = sr.ReadLine
-            Debug.WriteLine(CurlOutput)
+            'Debug.WriteLine(CurlOutput)
 
         Loop Until Proc.HasExited Or Microsoft.VisualBasic.DateAndTime.Timer < finish
 
@@ -986,7 +986,7 @@ Public Class Main
             CurlOutput = CurlOutput + sr.ReadToEnd
             CurlError = CurlError + sr2.ReadToEnd
             'ffmpegOutput2 = sr.ReadLine
-            Debug.WriteLine(CurlOutput)
+            'Debug.WriteLine(CurlOutput)
 
         Loop Until Proc.HasExited Or Microsoft.VisualBasic.DateAndTime.Timer < finish
 
@@ -1822,7 +1822,7 @@ Public Class Main
                             If UserCloseDialog = True Then
                                 Throw New System.Exception(Chr(34) + "UserAbort" + Chr(34))
                             Else
-                                MsgBox(ResoBackString)
+                                'MsgBox(ResoBackString)
                                 ResoUsed = ResoBackString
                                 ResoSave = ResoBackString
                             End If
@@ -1871,7 +1871,7 @@ Public Class Main
 #Region "item constructor"
             Dim SubType_Value As String = Nothing 'HardSubValuesToDisplay(SubSprache2.Replace(Chr(34), ""))
 
-            MsgBox(CR_HardSubLang)
+            'MsgBox(CR_HardSubLang)
 
             If Not CR_HardSubLang = "" Then
                 SubType_Value = "Hardsub: " + HardSubValuesToDisplay(CR_HardSubLang)
